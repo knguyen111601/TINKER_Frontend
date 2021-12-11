@@ -1,24 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import { createContext, useState, useEffect } from "react";
+import Header from "./components/Header"
+import Nav from "./components/Nav"
+import Main from "./components/Main"
+export const GlobalCtx = createContext(null)
+
+
 
 function App() {
+
+  const [gState, setGState] = useState({url: "https://pcbuilder-project4-backend.herokuapp.com/", user_id: null, username: null, pfp: null})
+
+  useEffect(()=>{
+    const user_id = JSON.parse(window.localStorage.getItem("user_id"))
+    console.log(user_id)
+    if (user_id){
+      setGState({...gState, user_id: user_id.id, username: user_id.username, pfp: user_id.pfp})
+    }
+  }, [])
+
   return (
+    <GlobalCtx.Provider value={{gState, setGState}}>
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header />
+      {/* <Nav /> */}
+      <Main />
     </div>
+    </GlobalCtx.Provider>
   );
 }
 
