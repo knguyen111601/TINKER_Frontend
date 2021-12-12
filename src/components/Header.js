@@ -24,6 +24,7 @@ const Header = (props) =>{
   const logout = async () => {
 
     window.localStorage.removeItem("user_id")
+    navigate("/")
     setGState({...gState, url: "https://pcbuilder-project4-backend.herokuapp.com/", user_id: null, username: null, pfp: null})
     await fetch(url + "auth" + "/logout", {
       method: "post"

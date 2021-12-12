@@ -11,7 +11,7 @@ const Main = (props) =>{
 
     const {gState} = useContext(GlobalCtx)
 
-    const {user_id, url} = gState
+    const {url, user_id} = gState
 
     const [pcs, setPcs] = useState(null)
 
@@ -20,13 +20,6 @@ const Main = (props) =>{
         const data = await response.json()
         console.log(data)
         setPcs(data)
-        let pcArr = []
-        for (let i=0;i<data.length;i++){
-            if (data[i].user_id === user_id) {
-                pcArr.push(data[i])
-            }
-        }
-        setPcs(pcArr)
     }
 
     useEffect(()=>{getPCs()}, [gState])

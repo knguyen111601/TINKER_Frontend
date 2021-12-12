@@ -6,7 +6,7 @@ import Modal from "../components/Modal"
 const Create = (props) =>{
     const navigate = useNavigate()
     const {gState} = useContext(GlobalCtx)
-    const {url, user_id} = gState
+    const {url} = gState
     const user = JSON.parse(window.localStorage.getItem("user_id"))
 
     const [form, setForm] = useState({
@@ -25,12 +25,8 @@ const Create = (props) =>{
             secondmisc_id: null,
             thirdmisc_id: null,
             public: true,
-            user_id: user["id"]
+            username: user["username"]
     })
-
-    // useEffect(()=>{
-    //     setForm({...form, user_id: user_id})
-    // }, [])
 
     const [modal, setModal] = useState(false)
     const [modalItems, setModalItems] = useState({
@@ -210,10 +206,12 @@ const Create = (props) =>{
 
     const create = (event) =>{
         event.preventDefault()
+        console.log(form)
         fetch(url + "pcs", {
             method: "post",
             headers:{
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${user["remember_token"]}`
             },
             body: JSON.stringify(form)
         })
@@ -239,8 +237,9 @@ const Create = (props) =>{
                 secondmisc_id: null,
                 thirdmisc_id: null,
                 public: null,
-                user_id: user["id"]
+                username: user["username"]
             })
+            navigate("/")
         })
     }
 

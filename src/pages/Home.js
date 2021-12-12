@@ -6,12 +6,14 @@ const Home = ({pcs}) =>{
     
     const navigate = useNavigate()
     const {gState} = useContext(GlobalCtx)
-    const {user_id} = gState
+    const {username} = gState
+
+
 
     const [user, setUser] = useState(null)
 
     const getUser = () =>{
-        setUser(user_id)
+        setUser(username)
     }
 
     useEffect(()=>{
@@ -20,10 +22,10 @@ const Home = ({pcs}) =>{
 
     const getPcs = () =>{
     return pcs.map((pc)=>{
-        if (pc.user_id == user){
+        if (pc.username == user){
         return <Link to={`/${pc.id}`}>
         <div>
-            <h1>{pc.user_id}</h1>
+            <h1>{pc.username}</h1>
             <h1>{pc.pc_name}</h1>
             <h1>{pc.cpu_name}</h1>
             <img src={pc.cpu_img}/>
