@@ -2,7 +2,7 @@ import {useState, useEffect, useContext} from "react"
 import { GlobalCtx } from "../App"
 import {BsPlus} from "react-icons/bs"
 
-const Modal = ({thing, things, open, onClose}) =>{
+const Modal = ({thing, things, open, setModalItems, setModal, form, setForm, modalItems}) =>{
     
     const {gState} = useContext(GlobalCtx)
     const {url} = gState
@@ -17,7 +17,7 @@ const Modal = ({thing, things, open, onClose}) =>{
         setItems(data)
     }
     
-    useEffect(()=>{getItem()})
+    useEffect(()=>{getItem()}, [open])
 
     const [search, setSearch] = useState({search: ""})
 
@@ -25,10 +25,6 @@ const Modal = ({thing, things, open, onClose}) =>{
         let newSearch = {...search}
         newSearch[event.target.name] = event.target.value
         setSearch(newSearch)
-    }
-
-    const handleSubmit = () =>{
-
     }
 
     const img = "single" + "." + thing + "_img"
@@ -44,26 +40,40 @@ const Modal = ({thing, things, open, onClose}) =>{
                 //     }
                 // }
 
-                if (eval(name) != "blank" && search.search == "" || eval(name).split("").find((letter)=>letter == search.search) == search.search){
+                if (eval(name) != "blank" && search.search == ""){
+
+                const thingname = `${thing}_id`
+
                 return <div className="partsSelect">            
                     <img src={eval(img)}/>
                     <h1>{eval(name)}</h1>
                     <div style={{display:"flex", justifyContent:"center",width: "15%", justifyContent: "space-between"}}>
                     <h1>${eval(price)}</h1>
-                    <button><BsPlus/></button>
+                    <button onClick={()=>{
+                        setForm({...form, [thingname]: single.id})
+                        setModalItems({...modalItems, thing: "", things:""})
+                        setModal(false)
+                        }}><BsPlus/></button>
                     </div>
                 </div>
                 } 
             })
     }
 
+    // const all = () => {
+    //     let word = thing.split("")
+    //     word[0] = word[0].toUpperCase()
+    //     return word.join("")
+    // }
 
-
-    const all = () => {
-        let word = thing.split("")
-        word[0] = word[0].toUpperCase()
-        return word.join("")
+    const onClose = ()=> {
+        setModal(false)
+        setModalItems({
+            thing: "",
+            things: ""
+        })
     }
+
 
     if (!open) {
         return null
@@ -76,11 +86,11 @@ const Modal = ({thing, things, open, onClose}) =>{
             <form>
                 <input style={{color: "black"}} type="text" name="search" value={search.search} placeholder="Search" onChange={handleChange}/>
             </form>
-            <h1 style={{textAlign: "center"}}>Choose a {all()}</h1>
+            <h1 style={{textAlign: "center"}}>Choose a {thing}</h1>
             {listOfItems()} 
             </div>
          </div>
-         : <hi>Loading...</hi>}
+         : null}
     </div>
     }
 }
