@@ -69,7 +69,7 @@ const Header = (props) =>{
         <Nav className="justify-content-end flex-grow-1 pe-3">
           <Nav.Link href="/">Home</Nav.Link>
           <Nav.Link onClick={()=>{toCreate()}}>System Builder</Nav.Link>
-          {user_id ? <Nav.Link onClick={logout}>Logout</Nav.Link> : <Nav.Link href="/signup">Signup</Nav.Link>}
+          {user_id ? <Nav.Link onClick={logout}>Logout</Nav.Link> : <Nav.Link onClick={()=>{toCreate()}}>Signup</Nav.Link>}
           {/* <NavDropdown title="Dropdown" id="offcanvasNavbarDropdown">
             <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
             <NavDropdown.Item href="#action4">Another action</NavDropdown.Item>
