@@ -29,6 +29,7 @@ const Header = (props) =>{
     await fetch(url + "auth" + "/logout", {
       method: "post"
     })
+    navigate("/")
     window.location.reload()
   }
 
