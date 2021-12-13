@@ -32,20 +32,29 @@ const Header = (props) =>{
     window.location.reload()
   }
 
-  const logoutButton = <button onClick={()=>{logout()}} className="headerButton">LOGOUT</button>
+  const toCreate = () =>{
+    if (user_id){
+    navigate("/create")
+    window.location.reload()
+    window.scrollTo(0,0)
+    } else {
+        navigate("/signup")
+        window.location.reload()
+        window.scrollTo(0,0)
+    }
+}
 
-  const signupButton = <Link to="/signup"><button>Signup</button></Link>
-
+// #1e2234
 
     return <>
 <Navbar style={{backgroundColor: "#1e2234"}} expand={false}>
   <Container fluid>
     <Navbar.Brand href="/" style={{display: "flex", alignItems: "center"}}><img className="logo" src="https://i.imgur.com/f6oTw7n.png"/><h1 className="companyName">T I N K E R</h1></Navbar.Brand>
     <div className="headerButtonDiv">
-    <button className="headerButton"><BsWrench/></button>
+    <button onClick={toCreate} className="headerButton"><BsWrench/></button>
     <button className="headerButton"><RiCpuLine/></button>
     <button className="headerButton"><BsFillPersonFill/></button>
-    {user_id ? logoutButton : signupButton}
+    
     <Navbar.Toggle aria-controls="offcanvasNavbar" className="offcanvasNavbar" style={{border: "none"}}><FaBars className="sandwich"/></Navbar.Toggle>
     </div>
     <Navbar.Offcanvas
@@ -54,20 +63,21 @@ const Header = (props) =>{
       placement="end"
     >
       <Offcanvas.Header closeButton>
-        <Offcanvas.Title id="offcanvasNavbarLabel">Profile</Offcanvas.Title>
+        <Offcanvas.Title id="offcanvasNavbarLabel">Options</Offcanvas.Title>
       </Offcanvas.Header>
       <Offcanvas.Body>
         <Nav className="justify-content-end flex-grow-1 pe-3">
-          <Nav.Link href="#action1">Home</Nav.Link>
-          <Nav.Link href="#action2">Link</Nav.Link>
-          <NavDropdown title="Dropdown" id="offcanvasNavbarDropdown">
+          <Nav.Link href="/">Home</Nav.Link>
+          <Nav.Link onClick={toCreate}>System Builder</Nav.Link>
+          {user_id ? <Nav.Link onClick={logout}>Logout</Nav.Link> : <Nav.Link href="/signup">Signup</Nav.Link>}
+          {/* <NavDropdown title="Dropdown" id="offcanvasNavbarDropdown">
             <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
             <NavDropdown.Item href="#action4">Another action</NavDropdown.Item>
             <NavDropdown.Divider />
             <NavDropdown.Item href="#action5">
               Something else here
             </NavDropdown.Item>
-          </NavDropdown>
+          </NavDropdown> */}
         </Nav>
       </Offcanvas.Body>
     </Navbar.Offcanvas>

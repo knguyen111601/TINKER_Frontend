@@ -10,6 +10,8 @@ function App() {
 
   const [gState, setGState] = useState({url: "https://pcbuilder-project4-backend.herokuapp.com/", user_id: null, username: null, pfp: null})
 
+// Checks if user is logged in
+
   useEffect(()=>{
     const user_id = JSON.parse(window.localStorage.getItem("user_id"))
     console.log(user_id)

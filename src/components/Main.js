@@ -11,7 +11,9 @@ const Main = (props) =>{
 
     const {gState} = useContext(GlobalCtx)
 
-    const {url, user_id} = gState
+    const {url} = gState
+
+    const username = window.localStorage.getItem("user_id")
 
     const [pcs, setPcs] = useState(null)
 
@@ -22,14 +24,22 @@ const Main = (props) =>{
         setPcs(data)
     }
 
-    useEffect(()=>{getPCs()}, [gState])
+    useEffect(()=>{getPCs()}, [])
 
+    if (username) {
     return <Routes>
         <Route path="/" element={<Home pcs={pcs}/>}/>
         <Route path="/signup" element={<Signup />}/>
         <Route path="/login" element={<Login />}/>
-        <Route path="/:id" element={<Show pcs={pcs}/>}/>
-        <Route path="/create" element={<Create />}/>
+        <Route path="/:id" element={<Show pcs={pcs} getPCs={getPCs}/>}/>
+        <Route path="/create" element={<Create getPCs={getPCs}/>}/> 
     </Routes>
+    } else {
+        return  <Routes>
+        <Route path="/" element={<Home pcs={pcs}/>}/>
+        <Route path="/signup" element={<Signup />}/>
+        <Route path="/login" element={<Login />}/>
+    </Routes>
+    }
 }
 export default Main

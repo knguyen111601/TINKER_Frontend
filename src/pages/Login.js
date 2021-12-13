@@ -40,14 +40,16 @@ const Login = (props) =>{
         })
     }
 
-    const loginForm = <form onSubmit={handleSubmit}>
+    const loginForm = <form onSubmit={handleSubmit} class="signupForm">
+        <img className="logo" src="https://i.imgur.com/f6oTw7n.png"/>
+        <h2 className="companyName" style={{color:"black"}}>T I N K E R</h2>
         <input type="text" name="username" value={form.username} placeholder="Username" onChange={handleChange}/>
         <input type="password" name="password" value={form.password} placeholder="Password" onChange={handleChange}/>
-    <input type="submit" value="Login"/>
+    <input className="submit" type="submit" value="Login"/>
     </form>
 
 
-    return <div>
+    return <div className="login">
         {loginForm}
     </div>
 }
