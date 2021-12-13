@@ -51,7 +51,7 @@ const Header = (props) =>{
   <Container fluid>
     <Navbar.Brand href="/" style={{display: "flex", alignItems: "center"}}><img className="logo" src="https://i.imgur.com/f6oTw7n.png"/><h1 className="companyName">T I N K E R</h1></Navbar.Brand>
     <div className="headerButtonDiv">
-    <button onClick={toCreate} className="headerButton"><BsWrench/></button>
+    <button onClick={()=>{toCreate()}} className="headerButton"><BsWrench/></button>
     <button className="headerButton"><RiCpuLine/></button>
     <button className="headerButton"><BsFillPersonFill/></button>
     
@@ -68,7 +68,7 @@ const Header = (props) =>{
       <Offcanvas.Body>
         <Nav className="justify-content-end flex-grow-1 pe-3">
           <Nav.Link href="/">Home</Nav.Link>
-          <Nav.Link onClick={toCreate}>System Builder</Nav.Link>
+          <Nav.Link onClick={()=>{toCreate()}}>System Builder</Nav.Link>
           {user_id ? <Nav.Link onClick={logout}>Logout</Nav.Link> : <Nav.Link href="/signup">Signup</Nav.Link>}
           {/* <NavDropdown title="Dropdown" id="offcanvasNavbarDropdown">
             <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
